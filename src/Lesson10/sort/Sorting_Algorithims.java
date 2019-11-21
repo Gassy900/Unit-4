@@ -15,11 +15,12 @@ public class Sorting_Algorithims extends javax.swing.JFrame {
 
     DefaultListModel model = new DefaultListModel();
     int rannum[] = new int[50000];
+
     public Sorting_Algorithims() {
 
         initComponents();
         numlist.setModel(model);
-        
+
     }
 
     /**
@@ -73,8 +74,18 @@ public class Sorting_Algorithims extends javax.swing.JFrame {
         });
 
         btnselc.setText("Selection Sort");
+        btnselc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnselcActionPerformed(evt);
+            }
+        });
 
         btnsort.setText("Insertion Sort");
+        btnsort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsortActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,8 +151,18 @@ public class Sorting_Algorithims extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton6.setText("Clear List");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Exit");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -212,8 +233,9 @@ public class Sorting_Algorithims extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btngenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenActionPerformed
-        
+
         for (int i = 0; i < rannum.length; i++) {
+            model.clear();
             rannum[i] = (int) (Math.random() * (50000) + 1);
             model.addElement(rannum[i]);
         }
@@ -228,7 +250,35 @@ public class Sorting_Algorithims extends javax.swing.JFrame {
         }
         lbltime.setText((System.currentTimeMillis() - startTime) + " milliseconds");
     }//GEN-LAST:event_btnbubbleActionPerformed
-   public static void bubbleSort(int[] a) {
+
+    private void btnsortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsortActionPerformed
+        long startTime = System.currentTimeMillis();
+        insertionSort(rannum);
+        model.clear();
+        for (int x = 0; x < rannum.length; x++) {
+            model.addElement(rannum[x]);
+        }
+        lbltime.setText((System.currentTimeMillis() - startTime) + " milliseconds");
+    }//GEN-LAST:event_btnsortActionPerformed
+
+    private void btnselcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnselcActionPerformed
+         long startTime = System.currentTimeMillis();
+        selectionSort(rannum);
+        model.clear();
+        for (int x = 0; x < rannum.length; x++) {
+            model.addElement(rannum[x]);
+        }
+        lbltime.setText((System.currentTimeMillis() - startTime) + " milliseconds");
+    }//GEN-LAST:event_btnselcActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        model.clear();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton7ActionPerformed
+    public static void bubbleSort(int[] a) {
         int k = 0;
         boolean exchangeMade = true;
         // Make up to n - 1 passes through array, exit 
@@ -244,6 +294,56 @@ public class Sorting_Algorithims extends javax.swing.JFrame {
                 }//end if
             }//end for
         }//end while
+    }
+
+    public static void insertionSort(int a[]) {
+        int itemToInsert, j;
+        boolean stillLooking;
+
+        //on the kth pass, pass item k upwards in list
+        //and insert it in its proper place amoung the
+        //first k entries in an array
+        for (int k = 1; k < a.length; k++) {
+            //move backwards through list, looking for
+            //the right place to insert a[k];
+            itemToInsert = a[k];
+            j = k - 1;
+            stillLooking = true;
+            while (j >= 0 && stillLooking) {
+                if (itemToInsert < a[j]) {
+                    //move item higher
+                    a[j + 1] = a[j];
+                    j--;
+                } else {
+                    //we have found new home for a[k];
+                    stillLooking = false;
+                }//end else// j+1 is where the item goes
+                a[j + 1] = itemToInsert;
+            }//end while
+        }//end for
+    }//
+
+    public static void selectionSort(int[] a) {
+        for (int i = 0; i < a.length - 1; i++) {
+            int minIndex = findMinimum(a, i);
+            if (minIndex != i) //if lowest is not already in place
+            {
+                swap(a, i, minIndex);
+            }
+        } //end for
+    }
+
+//supporting findMinimum method
+    public static int findMinimum(int[] a, int first) {
+        //first=where to start looking from
+        //assume first is also the smallest for now
+        int minIndex = first;
+        for (int i = first + 1; i < a.length; i++) {
+            if (a[i] < a[minIndex]) {
+                minIndex = i;
+            }
+        }
+        return minIndex;
     }
 
 //supporting swap method (same as bubble sort swap)

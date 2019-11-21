@@ -170,11 +170,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Selection Sort"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnselcActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnsort">
           <Properties>
             <Property name="text" type="java.lang.String" value="Insertion Sort"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnsortActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -272,11 +278,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Clear List"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton7">
           <Properties>
             <Property name="text" type="java.lang.String" value="Exit"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
