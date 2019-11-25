@@ -5,6 +5,7 @@
  */
 package Lesson10.searchdelete;
 
+import static Lesson10.searchdelete.ArrayListPerson.findInsertPoint;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -19,10 +20,10 @@ public class PersonProject extends javax.swing.JFrame {
 
     public PersonProject() {
         initComponents();
+        people.add(new Person("Abby", "F", 17));
         people.add(new Person("Bob", "M", 25));
         people.add(new Person("Joe", "M", 15));
         people.add(new Person("Marta", "F", 95));
-        people.add(new Person("Abby", "F", 17));
 
         namelist.setModel(model);
         for (Person p : people) {
@@ -172,6 +173,11 @@ public class PersonProject extends javax.swing.JFrame {
 
         mnuclr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10/searchdelete/exit.png"))); // NOI18N
         mnuclr.setText("Clear");
+        mnuclr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuclrActionPerformed(evt);
+            }
+        });
         jMenu2.add(mnuclr);
 
         mnuadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10/searchdelete/insert.png"))); // NOI18N
@@ -197,6 +203,11 @@ public class PersonProject extends javax.swing.JFrame {
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10/searchdelete/male.png"))); // NOI18N
         jMenuItem2.setText("Male");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem2);
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lesson10/searchdelete/female.png"))); // NOI18N
@@ -263,21 +274,46 @@ public class PersonProject extends javax.swing.JFrame {
     }//GEN-LAST:event_namelistMouseClicked
 
     private void mnuaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuaddActionPerformed
+
         try {
             String gender = buttonGroup1.getSelection().getActionCommand();
             if (gender.equals("M")) {
-                System.out.println("Male chosen");
+                String name = nametxt.getText();
+                int age = Integer.parseInt(agetxt.getText());
+                Person p = new Person(name, gender, age);
+                int loc = findInsertPoint(people, p);
+                people.add(loc, p);
+                model.add(loc, p.getName());
+
             } else if (gender.equals("F")) {
                 System.out.println("Female chosen");
+                String name = nametxt.getText();
+                int age = Integer.parseInt(agetxt.getText());
+                Person p = new Person(name, gender, age);
+                int loc = findInsertPoint(people, p);
+                people.add(loc, p);
+                model.add(loc, p.getName());
             }
         } catch (Exception e) {
             System.out.println("Must chose gender");
         }
     }//GEN-LAST:event_mnuaddActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void mnuclrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuclrActionPerformed
+        clearForm();
+    }//GEN-LAST:event_mnuclrActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    public void clearForm() {
+        nametxt.setText("");
+        agetxt.setText("");
+        buttonGroup1.clearSelection();
+        namelist.clearSelection();
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
